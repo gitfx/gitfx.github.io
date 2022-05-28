@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gitx.io - Git toolbox</title><link>https://gitx.io/</link><description>Recent content on Gitx.io - Git toolbox</description><generator>Hugo -- gohugo.io</generator><copyright>gitx.io</copyright><lastBuildDate>Wed, 05 Jan 2022 12:26:51 +0000</lastBuildDate><atom:link href="https://gitx.io/index.xml" rel="self" type="application/rss+xml"/><item><title>在 Hugo 中使用 GitFx</title><link>https://gitx.io/post/hugo-with-gitfx-zh_cn/</link><pubDate>Wed, 05 Jan 2022 12:26:51 +0000</pubDate><guid>https://gitx.io/post/hugo-with-gitfx-zh_cn/</guid><description>&lt;p>&lt;a href="https://github.com/gitx-io/GitFx">GitFx&lt;/a> 是我写的一个可以运行多种语言的代码片段的工具。同时提供了 &lt;a href="https://github.com/gitx-io/ActionServerless">ActionServerless&lt;/a> 这个 action 方便在 GitHub 的 workflow 里运行 GitFx。之所以把它命名为 &lt;code>ActionServerless&lt;/code> 这样的“热词”，除了蹭热度之外，你的确可以把用它实现的程序看作是一个 async 的 Serverless 应用。&lt;/p>
+&lt;p>使用 GitFx/ActionServerless 可以方便快速地为开发、测试创建一个静态资源的 API 服务。而且只需要把代码推到 GitHub 上就可以使用了。&lt;/p>
+&lt;p>我曾经想在博客中嵌入代码，同时通过一些服务去运行该代码，然后再把结果展示到文章里。可以使用 Docker 创建类似的功能，可以达到类似 Go playground 的那种效果。但是这对于个人博客不但有服务器开销，还会有安全问题。我们现在很多技术博客都是运行在 GitHub pages 上，所以用 GitFx 就方便多了：&lt;/p>
+&lt;ol>
+&lt;li>使用 GitFx 运行代码，把运行的输出存到一个路径&lt;/li>
+&lt;li>对于 Hugo 的使用者，我们提供了一个 shortcode 插件可以很方便地把插入代码、展示运行结果变成一行代码&lt;/li>
+&lt;/ol>
+&lt;p>这样你就可以轻松地写技术博客了。下面我们通过一个 Hello world 的示例看下如何使用。&lt;/p>
+&lt;h2 id="hello-world-示例">Hello world 示例&lt;/h2>
+&lt;h3 id="在-github-action-中运行-gitfx">在 GitHub action 中运行 GitFx&lt;/h3>
+&lt;p>在本例我们把代码放到根目录下的 &amp;lsquo;app&amp;rsquo; 目录中。 我们创建一个名为 &lt;code>hello.py&lt;/code> 的源文件，写上一行简单的 &lt;code>print(&amp;quot;Hello world!&amp;quot;)&lt;/code> 再加上一行用注释定义的存储输出的文件路径（具体写法可见下文的代码或参考 GitFx 的文档）。&lt;/p>
+&lt;p>然后我们需要创建一个 GitHub action workflow，其中和 GitFx 有关的部分配置如下：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">4
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">...
+- &lt;span style="color:#268bd2">uses&lt;/span>: gitx-io/ActionServerless@master
+&lt;span style="color:#268bd2">with&lt;/span>:
+&lt;span style="color:#268bd2">filepath&lt;/span>: &lt;span style="color:#2aa198">&amp;#39;./app&amp;#39;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>完整的配置可参考&lt;a href="https://github.com/gitx-io/gitx-io.github.io/blob/master/.github/workflows/hugo.yml">这里&lt;/a>。&lt;/p>
+&lt;h3 id="在-hugo-博客中展示代码和结果">在 Hugo 博客中展示代码和结果&lt;/h3>
+&lt;p>我们提供了一个 Hugo shortcode 的插件 &lt;a href="https://github.com/gitx-io/hugo-gitfx">hugo-gitfx&lt;/a> 来展示 &lt;code>hello.py&lt;/code> 和它的运行结果。你只需要在文章需要插入代码的地方写上：&lt;/p>
+&lt;blockquote>
+&lt;p>{{&amp;lt; gitfx &amp;ldquo;app/hello.py&amp;rdquo; &amp;gt;}}&lt;/p>
+&lt;/blockquote>
+&lt;p>然后就会有下面这样的效果：&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#586e75"># GET /app/hello_world&lt;/span>
+&lt;span style="color:#b58900">print&lt;/span>(&lt;span style="color:#2aa198">&amp;#34;Hello world!&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-text" data-lang="text">Hello world!
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>如果你也恰好使用 Hugo 架设博客，也可以试一下哦！&lt;/p></description></item><item><title>Hugo with GitFx</title><link>https://gitx.io/post/hugo-with-gitfx/</link><pubDate>Thu, 23 Dec 2021 12:26:51 +0000</pubDate><guid>https://gitx.io/post/hugo-with-gitfx/</guid><description>&lt;p>I posted &lt;a href="https://news.ycombinator.com/item?id=26381561">a message&lt;/a> in HackerNews when I&amp;rsquo;d released &lt;a href="https://github.com/gitx-io/ActionServerless">ActionServerless(GitFx)&lt;/a> early this year. And most of replies criticized that I&amp;rsquo;m abusing GitHub actions service. Then I emailed GitHub for their attitude, they replied that they don&amp;rsquo;t think that&amp;rsquo;s an abuse as so far.&lt;/p>
+&lt;p>GitFx can create a service for your developing, testing and learning with the convenience that GitHub actions provides. But I know there&amp;rsquo;s no enough usage of it until now.&lt;/p>
+&lt;p>I ever thought to create a tool that can be embedded into tech blogs, to show code, run code and display output of code, just as &lt;a href="https://go.dev/play/">golang playground&lt;/a> does. It seems there&amp;rsquo;re a lot of such services at present. I ever created one with docker. But it&amp;rsquo;s a little bit heavy to run so many docker containers.&lt;/p>
+&lt;p>Now I have GitFx, I realize it&amp;rsquo;s really a nice solution:&lt;/p>
+&lt;ol>
+&lt;li>Use GitFx to run code, and store output to a route.&lt;/li>
+&lt;li>Take Hugo as your blog framework for example, we provide a shortcode to show code and its output in your blogs.&lt;/li>
+&lt;/ol>
+&lt;p>You can create a vivid tutorial blog now! And of course I can&amp;rsquo;t wait to give you one for how to use GitFx with Hugo.&lt;/p>
+&lt;h2 id="hello-world">Hello world&lt;/h2>
+&lt;h3 id="set-up-gitfx-in-action">Set up GitFx in action&lt;/h3>
+&lt;p>We put our code in a folder under root directory, &amp;lsquo;app&amp;rsquo; folder in our example. We create a source file named &lt;code>hello.py&lt;/code>. We just code a &lt;code>print(&amp;quot;Hello world!&amp;quot;)&lt;/code> into it with a GitFx route(a route is a line of comment to define a file path to store output of the code).&lt;/p>
+&lt;p>We need to set up a GitHub action workflow, the main part of configuration related with GitFx is:&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">4
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yml" data-lang="yml">...
+- &lt;span style="color:#268bd2">uses&lt;/span>: gitx-io/ActionServerless@master
+&lt;span style="color:#268bd2">with&lt;/span>:
+&lt;span style="color:#268bd2">filepath&lt;/span>: &lt;span style="color:#2aa198">&amp;#39;./app&amp;#39;&lt;/span>
+...
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="show-code-in-your-hugo-blog">Show code in your Hugo blog&lt;/h3>
+&lt;p>We use Hugo shortcode &lt;a href="https://github.com/gitx-io/hugo-gitfx">hugo-gitfx&lt;/a> to show the content of &lt;code>hello.py&lt;/code> and its output. What you need is just to write one line in your blog:&lt;/p>
+&lt;blockquote>
+&lt;p>{{&amp;lt; gitfx &amp;ldquo;app/hello.py&amp;rdquo; &amp;gt;}}&lt;/p>
+&lt;/blockquote>
+&lt;p>The code and output showed below is the magic of it:&lt;/p>
+&lt;div class="highlight">&lt;div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+&lt;table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;">&lt;tr>&lt;td style="vertical-align:top;padding:0;margin:0;border:0;">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+&lt;/span>&lt;span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+&lt;pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#586e75"># GET /app/hello_world&lt;/span>
+&lt;span style="color:#b58900">print&lt;/span>(&lt;span style="color:#2aa198">&amp;#34;Hello world!&amp;#34;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-text" data-lang="text">Hello world!
+&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>You&amp;rsquo;re welcome to have a try if you&amp;rsquo;re a Hugo user!&lt;/p></description></item></channel></rss>
