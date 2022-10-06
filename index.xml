@@ -48,7 +48,7 @@
 &lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-text" data-lang="text">Hello world!
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;p>如果你也恰好使用 Hugo 架设博客，也可以试一下哦！&lt;/p></description></item><item><title>Hugo with GitFx</title><link>https://gitx.io/post/hugo-with-gitfx/</link><pubDate>Thu, 23 Dec 2021 12:26:51 +0000</pubDate><guid>https://gitx.io/post/hugo-with-gitfx/</guid><description>&lt;p>I posted &lt;a href="https://news.ycombinator.com/item?id=26381561">a message&lt;/a> in HackerNews when I&amp;rsquo;d released &lt;a href="https://github.com/gitx-io/ActionServerless">ActionServerless(GitFx)&lt;/a> early this year. And most of replies criticized that I&amp;rsquo;m abusing GitHub actions service. Then I emailed GitHub for their attitude, they replied that they don&amp;rsquo;t think that&amp;rsquo;s an abuse as so far.&lt;/p>
-&lt;p>GitFx can create a service for your developing, testing and learning with the convenience that GitHub actions provides. But I know there&amp;rsquo;s no enough usage of it until now.&lt;/p>
+&lt;p>GitFx can create a service for your developing, testing or learning with the convenience that GitHub actions provides. But I know there&amp;rsquo;s no enough usage of it until now.&lt;/p>
 &lt;p>I ever thought to create a tool that can be embedded into tech blogs, to show code, run code and display output of code, just as &lt;a href="https://go.dev/play/">golang playground&lt;/a> does. It seems there&amp;rsquo;re a lot of such services at present. I ever created one with docker. But it&amp;rsquo;s a little bit heavy to run so many docker containers.&lt;/p>
 &lt;p>Now I have GitFx, I realize it&amp;rsquo;s really a nice solution:&lt;/p>
 &lt;ol>
