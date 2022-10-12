@@ -3,8 +3,10 @@
 &lt;h2 id="quick-start">Quick start&lt;/h2>
 &lt;ol>
 &lt;li>&lt;a href="https://github.com/gitx-io/ssh-keygen-template/generate">Use the template&lt;/a> to create a repo, better as a private repo for secrity&lt;/li>
-&lt;li>Go to &lt;code>Actions&lt;/code> top menu page, follow the steps as below:
-&lt;img src="https://raw.githubusercontent.com/image-store/github/master/ssh-key-template.png" alt="ssh keygen action steps">&lt;/li>
+&lt;li>Go to &lt;code>Actions&lt;/code> top menu page, follow the steps as below:&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/image-store/github/master/ssh-key-template.png" alt="ssh keygen action steps">&lt;/p>
+&lt;ol start="3">
 &lt;li>After one minute or two, you&amp;rsquo;ll see two files, &lt;code>private_key.txt&lt;/code> and &lt;code>public_key.txt&lt;/code>, are added/updated in repo&amp;rsquo;s root direcotory when the action finished successfully&lt;/li>
 &lt;li>Open each file and click &lt;code>Copy raw contents&lt;/code> button on the top right to copy the key&lt;/li>
 &lt;/ol>
