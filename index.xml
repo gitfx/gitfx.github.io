@@ -2,12 +2,12 @@
 &lt;p>You can create key pairs in web page securely just by clicking.&lt;/p>
 &lt;h2 id="quick-start">Quick start&lt;/h2>
 &lt;ol>
-&lt;li>&lt;a href="https://github.com/gitx-io/ssh-keygen-template/generate">Use the template&lt;/a> to create a repo, better as a private repo for secrity&lt;/li>
+&lt;li>&lt;a href="https://github.com/gitx-io/ssh-keygen-template/generate">Use the template&lt;/a> to create a repo, better as a private repo for security&lt;/li>
 &lt;li>Go to &lt;code>Actions&lt;/code> top menu page, follow the steps as below:&lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="https://raw.githubusercontent.com/image-store/github/master/ssh-key-template.png" alt="ssh keygen action steps">&lt;/p>
 &lt;ol start="3">
-&lt;li>After one minute or two, you&amp;rsquo;ll see two files, &lt;code>private_key.txt&lt;/code> and &lt;code>public_key.txt&lt;/code>, are added/updated in repo&amp;rsquo;s root direcotory when the action finished successfully&lt;/li>
+&lt;li>After one minute or two, you&amp;rsquo;ll see two files, &lt;code>private_key.txt&lt;/code> and &lt;code>public_key.txt&lt;/code>, are added/updated in repo&amp;rsquo;s root directory when the action finished successfully&lt;/li>
 &lt;li>Open each file and click &lt;code>Copy raw contents&lt;/code> button on the top right to copy the key&lt;/li>
 &lt;/ol>
 &lt;p>Done!&lt;/p></description></item><item><title>在 Hugo 中使用 GitFx</title><link>https://gitx.io/post/hugo-with-gitfx-zh_cn/</link><pubDate>Wed, 05 Jan 2022 12:26:51 +0000</pubDate><guid>https://gitx.io/post/hugo-with-gitfx-zh_cn/</guid><description>&lt;p>&lt;a href="https://github.com/gitx-io/GitFx">GitFx&lt;/a> 是我写的一个可以运行多种语言的代码片段的工具。同时提供了 &lt;a href="https://github.com/gitx-io/ActionServerless">ActionServerless&lt;/a> 这个 action 方便在 GitHub 的 workflow 里运行 GitFx。之所以把它命名为 &lt;code>ActionServerless&lt;/code> 这样的“热词”，除了蹭热度之外，你的确可以把用它实现的程序看作是一个 async 的 Serverless 应用。&lt;/p>
