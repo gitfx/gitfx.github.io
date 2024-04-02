@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://gitx.io/sitemap.xml
+Sitemap: https://gitfx.github.io/sitemap.xml
